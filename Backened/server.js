@@ -6,11 +6,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
-const app = express();
-app.use(cors({
-  origin: "https://skill-path-ai-three.vercel.app",
-  credentials:true
-}));
 //import 'express-async-errors';
 
 import connectDB from './config/db.js';
