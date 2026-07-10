@@ -81,11 +81,11 @@ if (process.env.NODE_ENV === 'production') {
 // Error Handling Middleware
 app.use(notFound);
 app.use(errorHandler);
-
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+// Line 87-89 ko aise change karo:
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 // rishikasiddhant_db_user
-// spAMi9nLx8vVaCK5
+// spAMi9nLx8vVaCK5const PORT = process.env.PORT || 5000;
