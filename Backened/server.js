@@ -56,7 +56,9 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/learning', learningRoutes);
-
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
