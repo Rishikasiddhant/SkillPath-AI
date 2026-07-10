@@ -1,74 +1,49 @@
-import path from 'path';
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
 
-import connectDB from './config/db.js';
-import { notFound, errorHandler } from './middleware/errorMiddleware.js';
-
-// Route imports
-import authRoutes from './routes/authRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import profileRoutes from './routes/profileRoutes.js';
-import roadmapRoutes from './routes/roadmapRoutes.js';
-import progressRoutes from './routes/progressRoutes.js';
-import chatRoutes from './routes/chatRoutes.js';
-import projectRoutes from './routes/projectRoutes.js';
-import resourceRoutes from './routes/resourceRoutes.js';
-import adminRoutes from './routes/adminRoutes.js';
-import learningRoutes from './routes/learningRoutes.js';
-
+// Load env variables
 dotenv.config();
-connectDB();
 
 const app = express();
-app.use(helmet());
 
-// CORS configuration - Multiple origins allowed
+// Middleware
 app.use(cors({
-  origin: [
-    "https://skill-path-ai-three.vercel.app", 
-    "https://skill-path-qwviqo3sn-rishika-projects.vercel.app"
-  ],
-  credentials: true,
+  origin: "*", // Ye tumhare frontend ko access allow karega
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  credentials: true
 }));
 
 app.use(express.json());
-app.use(cookieParser());
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+// Routes (Jo tumne pehle banaye the)
+// app.use('/api/projects', projectRoutes);
+// app.use('/api/resources', resourceRoutes);
+// app.use('/api/admin', adminRoutes);
+// app.use('/api/learning', learningRoutes);
 
-// API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/profiles', profileRoutes);
-app.use('/api/roadmaps', roadmapRoutes);
-app.use('/api/progress', progressRoutes);
-app.use('/api/chat', chatRoutes);
-app.use('/api/projects', projectRoutes);
-app.use('/api/resources', resourceRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/learning', learningRoutes);
+// Health check route
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+// Root route (Taaki "Not Found" na aaye)
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
-// Health check
-app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
-// Serve frontend in production
+// Error handling middleware
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Not Found - " + req.originalUrl });
+});
 
-app.use(notFound);
-app.use(errorHandler);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Internal Server Error" });
+});
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
