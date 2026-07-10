@@ -1,7 +1,7 @@
 import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors'; // Sirf ye import rakho
+import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
@@ -22,16 +22,17 @@ import adminRoutes from './routes/adminRoutes.js';
 import learningRoutes from './routes/learningRoutes.js';
 
 dotenv.config();
-
 connectDB();
 
 const app = express();
-
 app.use(helmet());
 
-// CORS configuration (Sirf ek baar)
+// CORS configuration - Multiple origins allowed
 app.use(cors({
-  origin: "https://skill-path-ai-three.vercel.app",
+  origin: [
+    "https://skill-path-ai-three.vercel.app", 
+    "https://skill-path-qwviqo3sn-rishika-projects.vercel.app"
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -56,8 +57,10 @@ app.use('/api/resources', resourceRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/learning', learningRoutes);
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'SkillPath AI API is running' }));
+// Health check
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
+// Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
   app.use(express.static(path.join(__dirname, '../skillpath-frontend/dist')));
@@ -72,5 +75,5 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
