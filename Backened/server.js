@@ -61,13 +61,6 @@ app.use('/api/learning', learningRoutes);
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 // Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve();
- 
-  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../skillpath-frontend/dist', 'index.html')));
-} else {
-  app.get('/', (req, res) => res.send('API is running....'));
-}
 
 app.use(notFound);
 app.use(errorHandler);
