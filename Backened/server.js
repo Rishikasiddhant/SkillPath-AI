@@ -39,15 +39,13 @@ const allowedOrigins = [
   clientUrl ? clientUrl.replace(/\/$/, '') : null
 ].filter(Boolean);
 
+const cors = require('cors');
+
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: "https://skill-path-ai-three.vercel.app",
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
 app.use(cookieParser());
