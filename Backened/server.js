@@ -8,12 +8,21 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: "*", // Ye tumhare frontend ko access allow karega
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+const cors = require('cors');
 
+app.use(cors({
+  origin: function (origin, callback) {
+    // Ye line allow karegi ki agar request tumhare frontend se hai toh wo pass ho jaye
+    if (!origin || origin.includes('vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json());
 
 // Routes (Jo tumne pehle banaye the)
