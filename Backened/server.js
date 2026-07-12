@@ -34,19 +34,19 @@ app.use(helmet());
 const clientUrl = process.env.CLIENT_URL;
 const allowedOrigins = [
   'http://localhost:5173',
-  clientUrl,
-  clientUrl ? clientUrl.replace(/\/$/, '') : null
-].filter(Boolean);
+  'https://skill-path-ay2do91zl-rishika-projects1.vercel.app'
+];
 
 app.use(cors({
   origin: function (origin, callback) {
+    // !origin allow karta hai Postman jaise tools ke liye
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true,
+  credentials: true
 }));
 app.use(express.json());
 app.use(cookieParser());
