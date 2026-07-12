@@ -37,7 +37,7 @@ app.use(helmet());
 
 // Cleaned up CORS for your specific Vercel URL
 app.use(cors({
-  origin: 'https://skill-path-ai-three.vercel.app/login', 
+  origin: process.env.Allowed_ORIGIN,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
