@@ -36,11 +36,10 @@ app.use(helmet());
 
 // Cleaned up CORS for your specific Vercel URL
 app.use(cors({
-  origin:"https:// skill-path-ai-three.vercel.app",
-
+  origin: true, // Ye line kisi bhi URL se aane wali request ko allow kar degi
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders:['Content-Type', 'Authorization']
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use((req, res, next) => {
