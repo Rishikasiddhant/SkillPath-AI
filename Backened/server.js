@@ -21,8 +21,7 @@ import projectRoutes from './routes/projectRoutes.js';
 import resourceRoutes from './routes/resourceRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import learningRoutes from './routes/learningRoutes.js';
-
- require('dotenv').config();
+dotenv.config();
 
 // Connect to Database
 connectDB();
