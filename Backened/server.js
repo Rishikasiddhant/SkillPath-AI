@@ -39,7 +39,7 @@ app.use(helmet());
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://skill-path-5tzlfiz2s-rishika-projects1.vercel.app'
+    'https://skill-path-al846k7gy-rishika-projects1.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
