@@ -96,8 +96,13 @@ export const logoutUser = (req, res) => {
 // @route   GET /api/auth/me
 // @access  Private
 export const getMe = async (req, res) => {
-  // req.user is set by the protect middleware
-  res.status(200).json({
+    try {
+        const user = await User.findById(req.user.id);
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+};({
     user: {
       _id: req.user._id,
       name: req.user.name,

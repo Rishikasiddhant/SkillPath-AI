@@ -79,7 +79,13 @@ const LoginPage = () => {
             </div>
             {errors.password && <span className="input-error-msg">{errors.password}</span>}
           </div>
-          <Button type="submit" variant="primary" isLoading={isLoading} className="btn--full">
+
+          <Button 
+            type="submit" 
+            variant="primary" 
+            isLoading={isLoading} 
+            className="btn--form"
+          >
             Sign In
           </Button>
         </form>

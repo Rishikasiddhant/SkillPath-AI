@@ -29,29 +29,28 @@ connectDB();
 
 const app = express();
 
+// --- CRITICAL FIX FOR RENDER PROXY ---
+app.enable('trust proxy'); 
+
 // Security and utility middleware
 app.use(helmet());
-const clientUrl = process.env.CLIENT_URL;
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://skill-path-ay2do91zl-rishika-projects1.vercel.app'
-];
 
+// Cleaned up CORS for your specific Vercel URL
 app.use(cors({
-  origin: function (origin, callback) {
-    // Ye line allow karti hai agar request tumhare local ya kisi bhi vercel app se ho
-    if (!origin || origin.includes('vercel.app') || origin === 'http://localhost:5173') {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
+  origin: [
+    'http://localhost:5173',
+    'https://skill-path-5tzlfiz2s-rishika-projects1.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 }));
+
 app.use((req, res, next) => {
   console.log(`Incoming request: ${req.method} ${req.url}`);
   next();
 });
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -74,7 +73,7 @@ app.use('/api/learning', learningRoutes);
 // Health check endpoint
 app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'SkillPath AI API is running' }));
 
-// Serve frontend in production (optional for monolithic deployments)
+// Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
   app.use(express.static(path.join(__dirname, '../skillpath-frontend/dist')));
