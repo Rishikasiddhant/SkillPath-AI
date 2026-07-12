@@ -38,7 +38,10 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin:"*",
+  origin: [
+    'http://localhost:5173', 
+    'https://skill-path-zr09po67o-rishika-projects1.vercel.app' // Ye wahi URL hai jo tumhare error mein dikh rahi hai
+  ],
   credentials: true
 }));
 app.use((req, res, next) => {
