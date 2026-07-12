@@ -19,12 +19,13 @@ import AdminResources from './pages/admin/AdminResources.jsx'
 import AdminUsers from './pages/admin/AdminUsers.jsx'
 import { useEffect } from 'react'
 import axios from 'axios'
+import api from './utils/axios.js'
 
 const App = () => {
   useEffect(() => {
   const checkAuth = async () => {
     try {
-      const res = await axios.get('/api/auth/me');
+      const res = await api.get('/auth/me');
       console.log("User logged in:", res.data);
     } catch (err) {
       console.log("Not logged in");
