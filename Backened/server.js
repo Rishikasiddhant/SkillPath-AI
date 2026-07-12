@@ -37,7 +37,7 @@ app.use(helmet());
 
 // Cleaned up CORS for your specific Vercel URL
 app.use(cors({
-  origin: '*', 
+  origin: 'https://skill-path-n5lju01p6-rishika-projects1.vercel.app', 
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
