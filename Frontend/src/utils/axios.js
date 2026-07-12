@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const api = axios.create({
   // Sirf domain do, /api mat lagao
-  baseURL: "https://skillpath-ai-t86k.onrender.com/api", 
+  baseURL: "https://skillpath-ai-t86k.onrender.com", 
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' }
 })
