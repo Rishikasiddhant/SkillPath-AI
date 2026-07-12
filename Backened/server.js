@@ -37,13 +37,9 @@ app.use(helmet());
 
 // Cleaned up CORS for your specific Vercel URL
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://skill-path-fwmwxdbdp-rishika-projects1.vercel.app'
-  ],
+  origin: '*', 
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 
 app.use((req, res, next) => {
