@@ -23,19 +23,19 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (email, password) => {
-    const { data } = await api.post('api/auth/login', { email, password })
+    const { data } = await api.post('/auth/login', { email, password })
     setUser(data.user)
     return data.user
   }
 
   const register = async (name, email, password) => {
-    const { data } = await api.post('api/auth/register', { name, email, password })
+    const { data } = await api.post('/auth/register', { name, email, password })
     setUser(data.user)
     return data.user
   }
 
   const logout = async () => {
-    await api.post('api/auth/logout')
+    await api.post('/auth/logout')
     setUser(null)
   }
 
