@@ -39,7 +39,6 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    // !origin allow karta hai Postman jaise tools ke liye
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
