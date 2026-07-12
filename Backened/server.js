@@ -38,10 +38,14 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173', 
-    'https://skill-path-zr09po67o-rishika-projects1.vercel.app' // Ye wahi URL hai jo tumhare error mein dikh rahi hai
-  ],
+  origin: function (origin, callback) {
+    // Ye line allow karti hai agar request tumhare local ya kisi bhi vercel app se ho
+    if (!origin || origin.includes('vercel.app') || origin === 'http://localhost:5173') {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use((req, res, next) => {

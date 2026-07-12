@@ -17,8 +17,21 @@ import NotFoundPage from './pages/NotFoundPage.jsx'
 import AdminDashboard from './pages/admin/AdminDashboard.jsx'
 import AdminResources from './pages/admin/AdminResources.jsx'
 import AdminUsers from './pages/admin/AdminUsers.jsx'
+import { useEffect } from 'react'
+import axios from 'axios'
 
 const App = () => {
+  useEffect(() => {
+  const checkAuth = async () => {
+    try {
+      const res = await axios.get('/api/auth/me');
+      console.log("User logged in:", res.data);
+    } catch (err) {
+      console.log("Not logged in");
+    }
+  };
+  checkAuth();
+}, []);
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
