@@ -22,7 +22,7 @@ import resourceRoutes from './routes/resourceRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import learningRoutes from './routes/learningRoutes.js';
 
-dotenv.config();
+ require('dotenv').config();
 
 // Connect to Database
 connectDB();
@@ -37,7 +37,8 @@ app.use(helmet());
 
 // Cleaned up CORS for your specific Vercel URL
 app.use(cors({
-  origin: process.env.Allowed_ORIGIN,
+  origin:"https/:/ skill-path-ai-three.vercel.app",
+
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders:['Content-Type', 'Authorization']
