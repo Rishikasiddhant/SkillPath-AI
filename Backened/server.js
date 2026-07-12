@@ -7,7 +7,6 @@ dotenv.config();
 
 const app = express();
 
-
 app.use(cors({
   origin: function (origin, callback) {
     // Ye line allow karegi ki agar request tumhare frontend se hai toh wo pass ho jaye
