@@ -102,12 +102,6 @@ export const getMe = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: "Server error" });
     }
-};({
-    user: {
-      _id: req.user._id,
-      name: req.user.name,
-      email: req.user.email,
-      role: req.user.role
-    }
-  });
-};
+}; 
+
+    
