@@ -29,16 +29,18 @@ const LoginPage = () => {
     if (Object.keys(errs).length) { setErrors(errs); return }
     setIsLoading(true)
     try {
-      const user = await login(form.email, form.password)
-      toast.success(`Welcome back, ${user.name}!`)
-      navigate(user.role === 'admin' ? '/admin' : '/dashboard')
-    } catch (err) {
-      const msg = err.response?.data?.message || 'Login failed'
-      toast.error(msg)
-      setErrors({ general: msg })
-    } finally {
-      setIsLoading(false)
-    }
+    const user = await login(form.email, form.password);
+    console.log("Login success, user data:", user);
+    toast.success('Welcome back, ${user.name}!');
+    navigate(user.role === 'admin' ? '/admin' : '/dashboard');
+  } catch (err) {
+    console.error("DEBUG ERROR:", err);
+    const msg = err.response?.data?.message || 'Login failed';
+    toast.error(msg);
+    setErrors({ general: msg });
+  } finally {
+    setIsLoading(false);
+  }
   }
 
   return (
