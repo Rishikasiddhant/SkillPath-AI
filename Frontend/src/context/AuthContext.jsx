@@ -25,32 +25,34 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
   try {
-    const response = await api.post('/auth/login', { email, password });
-    
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
-      setUser(response.data.user); // Agar ye line fail hui toh error aa sakta hai
-      // Yahan navigate('/dashboard') add karna na bhoolein
-    }
-  } catch (error) {
-    console.error("Login failed:", error); // Check karein kya error aa raha hai
+    const res = await api.post('/auth/login', { email, password });
+    setUser(res.data); // Yahan user set karein
+    window.location.href = '/dashboard'; // Yahan se seedha redirect karein
+  } catch (err) {
+    console.error("Login Error:", err);
+    // Yahan sirf error dikhayein, agar login sach mein fail hua hai toh
   }
 };
+};
   const register = async (name, email, password) => {
-    const { data } = await api.post('/auth/register', { name, email, password })
-    
-    // Yahan bhi token save karo
-    localStorage.setItem('token', data.token)
-    
-    setUser(data.user)
-    return data.user
+  try {
+    const res = await api.post('/auth/register', { name, email, password });
+    setUser(res.data); // User set karein
+    window.location.href = '/dashboard'; // Redirect karein
+  } catch (err) {
+    console.error("Register Error:", err);
   }
+};
 
   const logout = async () => {
-    await api.post('/auth/logout')
-    localStorage.removeItem('token') // Logout par token hatao
-    setUser(null)
+  try {
+    await api.post('/auth/logout');
+    setUser(null); // User ko null karein
+    window.location.href = '/login'; // Login page par bhej dein
+  } catch (err) {
+    console.error("Logout Error:", err);
   }
+};
 
   // ... baaki ka code same rahega
   const updateUser = (updatedData) => {
