@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
       }
     }
     checkAuth()
-  }, [])c
+  }, []);
 
   const login = async (email, password) => {
   const response = await api.post('/auth/login', { email, password });
