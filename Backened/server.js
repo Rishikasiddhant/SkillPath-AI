@@ -1,4 +1,4 @@
-app.set('trust proxy',1);
+
 import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
@@ -29,9 +29,11 @@ dotenv.config();
 connectDB();
 
 const app = express();
+app.set('trust proxy',1);
+app.use(express.json());
 
 // --- CRITICAL FIX FOR RENDER PROXY ---
-app.enable('trust proxy'); 
+
 
 // Security and utility middleware
 app.use(helmet());
