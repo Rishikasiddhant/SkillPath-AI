@@ -10,8 +10,7 @@ export const getMyRoadmap = async (req, res) => {
   if (roadmap) {
     res.json({ roadmap });
   } else {
-    res.status(404);
-    throw new Error('Roadmap not found');
+    res.json({roadmap: null});
   }
 };
 
