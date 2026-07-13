@@ -39,7 +39,8 @@ app.use(helmet());
 const corsOptions = {
   origin: [
     'https://skill-path-ai-three.vercel.app', 
-    'https://skill-path-yh0a8rdo7-rishika-projects1.vercel.app'
+    'https://skill-path-yh0a8rdo7-rishika-projects1.vercel.app',
+    'https://skill-path-e442w2mkc-rishika-projects1.vercel.app' // Naya URL yahan add kiya
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
