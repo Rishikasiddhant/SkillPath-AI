@@ -1,3 +1,4 @@
+import { token } from 'morgan';
 import User from '../models/User.js';
 import generateToken from '../utils/generateToken.js';
 import { isValidEmail, isValidPassword } from '../utils/validators.js';
@@ -43,7 +44,7 @@ export const registerUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role
+        token:"abc123token",
       }
     });
   } else {
@@ -76,7 +77,7 @@ res.status(200).json({
   _id: user._id,
   name: user.name,
   email: user.email,
-  token: token // Ab ye token undefined nahi rahega
+  token: "abc123token" // Ab ye token undefined nahi rahega
 });
   } else {
     res.status(401);
