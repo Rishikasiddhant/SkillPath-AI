@@ -37,9 +37,11 @@ export const AuthProvider = ({ children }) => {
   const data = response.data; 
 
   if (data.token) {
-    localStorage.setItem('token', data.token);
-  }
-  
+  console.log("Token received:", data.token); // Ye check karein ki token console mein print ho raha hai ya nahi
+  localStorage.setItem('token', data.token);
+} else {
+  console.log("Token nahi mila, data structure dekho:", data);
+}
   setUser(data.user);
   return data.user;
 };
