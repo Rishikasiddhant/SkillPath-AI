@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         const { data } = await api.get('/auth/me')
         setUser(data.user)
       } catch {
-        localStorage.removeItem('token') // Agar error aaye toh token hata do
+        //localStorage.removeItem('token') // Agar error aaye toh token hata do
         setUser(null)
       } finally {
         setIsLoading(false)
