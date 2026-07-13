@@ -74,12 +74,7 @@ export const loginUser = async (req, res) => {
 // Phir response mein token bhejein:
 
 
-res.cookie('jwt', token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: 'none',
-  maxAge: 30 * 24 * 60 * 60 * 1000
-});
+
 res.status(200).json({
   _id: user._id,
   name: user.name,
