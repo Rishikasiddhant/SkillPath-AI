@@ -27,23 +27,20 @@ export const AuthProvider = ({ children }) => {
       }
     }
     checkAuth()
-  }, [])
+  }, [])c
 
   const login = async (email, password) => {
   const response = await api.post('/auth/login', { email, password });
-  console.log("Pura Response:", response); // Pura object dekhein
-  
-  // Aksar data response.data mein hota hai
-  const data = response.data; 
+  const data = response.data;
 
   if (data.token) {
-  console.log("Token received:", data.token); // Ye check karein ki token console mein print ho raha hai ya nahi
-  localStorage.setItem('token', data.token);
-} else {
-  console.log("Token nahi mila, data structure dekho:", data);
-}
-  setUser(data.user);
-  return data.user;
+    console.log("Token received:", data.token);
+    
+    // YEH LINE ZAROORI HAI:
+    localStorage.setItem('token', data.token); 
+    
+    setUser(data.user); // Agar aap user set kar rahe hain
+  }
 };
   const register = async (name, email, password) => {
     const { data } = await api.post('/auth/register', { name, email, password })
