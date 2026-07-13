@@ -73,6 +73,13 @@ export const loginUser = async (req, res) => {
 
 // Phir response mein token bhejein:
 
+
+res.cookie('jwt', token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none',
+  maxAge: 30 * 24 * 60 * 60 * 1000
+});
 res.status(200).json({
   _id: user._id,
   name: user.name,
@@ -89,9 +96,9 @@ res.status(200).json({
 // @route   POST /api/auth/logout
 // @access  Public
 export const logoutUser = (req, res) => {
-  res.cookie('jwt', '', {
+  res.cookie('jwt', '', { // Value ko empty string kar dein
     httpOnly: true,
-    expires: new Date(0)
+    expires: new Date(0), // Expiration date ko past mein set karein
   });
   res.status(200).json({ message: 'Logged out successfully' });
 };
