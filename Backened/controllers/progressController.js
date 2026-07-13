@@ -8,8 +8,8 @@ export const getMyProgress = async (req, res) => {
   if (progress) {
     res.json({ progress });
   } else {
-    res.status(404);
-    throw new Error('Progress record not found');
+    res.json({ progress: null});
+    
   }
 };
 
