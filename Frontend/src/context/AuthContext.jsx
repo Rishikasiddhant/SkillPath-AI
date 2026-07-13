@@ -33,7 +33,6 @@ export const AuthProvider = ({ children }) => {
     // Yahan sirf error dikhayein, agar login sach mein fail hua hai toh
   }
 };
-};
   const register = async (name, email, password) => {
   try {
     const res = await api.post('/auth/register', { name, email, password });
@@ -73,7 +72,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-
 export const useAuth = () => useContext(AuthContext)
-export default AuthContext
+export default AuthContext;
