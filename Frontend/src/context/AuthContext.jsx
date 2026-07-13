@@ -30,15 +30,19 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (email, password) => {
-    const { data } = await api.post('/auth/login', { email, password })
-    
-    // YE LINE ZAROORI HAI: Token save karo
-    localStorage.setItem('token', data.token) 
-    
-    setUser(data.user)
-    return data.user
-  }
+  const response = await api.post('/auth/login', { email, password });
+  console.log("Pura Response:", response); // Pura object dekhein
+  
+  // Aksar data response.data mein hota hai
+  const data = response.data; 
 
+  if (data.token) {
+    localStorage.setItem('token', data.token);
+  }
+  
+  setUser(data.user);
+  return data.user;
+};
   const register = async (name, email, password) => {
     const { data } = await api.post('/auth/register', { name, email, password })
     
