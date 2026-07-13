@@ -1,3 +1,4 @@
+app.set('trust proxy',1);
 import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
