@@ -21,6 +21,7 @@ import projectRoutes from './routes/projectRoutes.js';
 import resourceRoutes from './routes/resourceRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import learningRoutes from './routes/learningRoutes.js';
+
 dotenv.config();
 
 // Connect to Database
@@ -34,26 +35,18 @@ app.enable('trust proxy');
 // Security and utility middleware
 app.use(helmet());
 
-// Cleaned up CORS for your specific Vercel URL
-app.use(cors({
-  origin: true, // Ye line kisi bhi URL se aane wali request ko allow kar degi
-  credentials: true,
+// Corrected CORS Configuration
+const corsOptions = {
+  origin: [
+    'https://skill-path-ai-three.vercel.app', 
+    'https://skill-path-yh0a8rdo7-rishika-projects1.vercel.app'
+  ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+};
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://skill-path-ai-three.vercel.app");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-  next();
-});
-
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
