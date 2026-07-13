@@ -30,16 +30,16 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-  const response = await api.post('/auth/login', { email, password });
-  const data = response.data;
-
-  if (data.token) {
-    console.log("Token received:", data.token);
+  try {
+    const response = await api.post('/auth/login', { email, password });
     
-    // YEH LINE ZAROORI HAI:
-    localStorage.setItem('token', data.token); 
-    
-    setUser(data.user); // Agar aap user set kar rahe hain
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+      setUser(response.data.user); // Agar ye line fail hui toh error aa sakta hai
+      // Yahan navigate('/dashboard') add karna na bhoolein
+    }
+  } catch (error) {
+    console.error("Login failed:", error); // Check karein kya error aa raha hai
   }
 };
   const register = async (name, email, password) => {
