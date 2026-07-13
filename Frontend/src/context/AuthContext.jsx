@@ -9,23 +9,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      try {
-        // Token check karo
-        const token = localStorage.getItem('token')
-        if (!token) {
-          setIsLoading(false)
-          return
-        }
-        
-        const { data } = await api.get('/auth/me')
-        setUser(data.user)
-      } catch {
-        //localStorage.removeItem('token') // Agar error aaye toh token hata do
-        setUser(null)
-      } finally {
-        setIsLoading(false)
-      }
+    setIsLoading(true); // Shuru mein loading true karein
+    try {
+        // Line 14-18 hata dein (token wala check zaroorat nahi hai)
+        const { data } = await api.get('/auth/me'); // Ye direct request bhejega aur cookie apne aap jayegi
+        setUser(data.user);
+    } catch (err) {
+        setUser(null);
+    } finally {
+        setIsLoading(false); // End mein loading false
     }
+};
     checkAuth()
   }, []);
 
