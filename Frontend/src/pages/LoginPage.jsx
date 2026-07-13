@@ -24,6 +24,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log("Button clicked!");
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
     setIsLoading(true)
