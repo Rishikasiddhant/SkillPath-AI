@@ -35,19 +35,13 @@ app.enable('trust proxy');
 // Security and utility middleware
 app.use(helmet());
 
-// Corrected CORS Configuration
-const corsOptions = {
-  origin: [
-    'https://skill-path-ai-three.vercel.app', 
-    'https://skill-path-yh0a8rdo7-rishika-projects1.vercel.app',
-    'https://skill-path-e442w2mkc-rishika-projects1.vercel.app' // Naya URL yahan add kiya
-  ],
+// Updated CORS Configuration
+app.use(cors({
+  origin: true, 
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-};
-
-app.use(cors(corsOptions));
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 app.use(express.json());
 app.use(cookieParser());
