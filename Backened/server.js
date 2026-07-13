@@ -36,7 +36,7 @@ app.enable('trust proxy');
 app.use(helmet());
 
 // Updated CORS Configuration
-aapp.use(cors({
+app.use(cors({
   origin: function (origin, callback) {
     // Ye function kisi bhi origin ko allow kar dega jo request bhej raha hai
     // Credentials true ke sath '*' kaam nahi karta, isliye hum origin ko return kar rahe hain
