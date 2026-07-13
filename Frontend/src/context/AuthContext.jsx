@@ -26,11 +26,10 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
   try {
     const res = await api.post('/auth/login', { email, password });
-    setUser(res.data); // Yahan user set karein
-    window.location.href = '/dashboard'; // Yahan se seedha redirect karein
+    setUser(res.data);
+    return res.data; // <--- Yeh line add karni zaroori hai!
   } catch (err) {
-    console.error("Login Error:", err);
-    // Yahan sirf error dikhayein, agar login sach mein fail hua hai toh
+    throw err; // Taaki error LoginPage mein catch ho sake
   }
 };
   const register = async (name, email, password) => {
