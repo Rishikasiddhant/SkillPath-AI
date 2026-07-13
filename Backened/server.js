@@ -36,21 +36,12 @@ app.enable('trust proxy');
 app.use(helmet());
 
 // Updated CORS Configuration
-app.use(cors({
+aapp.use(cors({
   origin: function (origin, callback) {
-    // Ye line check karti hai ki kya request aapke allowed domains se aa rahi hai
-    // Agar origin nahi hai (jaise server-to-server request), toh use allow karein
-    if (!origin || [
-      'https://skill-path-ai-three.vercel.app', 
-      'https://skill-path-yh0a8rdo7-rishika-projects1.vercel.app',
-      'https://skill-path-iz3v2fng1-rishika-projects1.vercel.app' // Naya URL yahan daalein
-    ].indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    // Ye function kisi bhi origin ko allow kar dega jo request bhej raha hai
+    // Credentials true ke sath '*' kaam nahi karta, isliye hum origin ko return kar rahe hain
+    callback(null, origin);
   },
-
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
